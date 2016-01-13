@@ -1,6 +1,6 @@
 from __future__ import print_function
 import subprocess
-from utils import call_repo_command, color_it
+from utils import call_repo_command, color_it, cleanup
 from examples import *
 
 #py2/3 hack
@@ -24,10 +24,6 @@ def introduction():
     print(color_it(text, 'white'))
     input(color_it('Press enter to start Example 1...', 'yellow'))
 
-def cleanup():
-   #remove old directory maybe more later?
-   subprocess.call(["rm", "-rf", "./repo"])
-
 def setup_repo():
     print(color_it("First, we'll create a working directory called 'repo'"))
     subprocess.call(['mkdir', 'repo'])
@@ -44,10 +40,7 @@ def main():
     cleanup()
     introduction()
     setup_repo()
-    example_one()
-    example_two()
-    example_three()
-    example_four()
+    call_example(1)
 
 
 if __name__ == '__main__':

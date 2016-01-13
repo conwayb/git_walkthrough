@@ -40,3 +40,8 @@ def change_file(filename, text):
     text = "Writing to: %s..." % filename
     print(color_it(text))
     call_repo_command(['cat', filename])
+
+def cleanup():
+   #remove old directory maybe more later?
+   subprocess.call(["rm", "-rf", "./repo"])
+

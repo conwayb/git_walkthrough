@@ -1,6 +1,6 @@
 from __future__ import print_function
-import time, subprocess
-from utils import call_repo_command, color_it, change_file
+import time, subprocess, sys
+from utils import call_repo_command, color_it, change_file, cleanup
 
 
 #py2/3 hack
@@ -9,6 +9,17 @@ try:
 except NameError:
     pass
 
+def call_example(num):
+    if num == 1:
+        example_one()
+    elif num == 2:
+        example_two()
+    elif num == 3:
+        example_three()
+    elif num == 4:
+        example_four()
+    else:
+        return sys.exit()
 
 def example_one():
     '''Example for git commit --amend'''
