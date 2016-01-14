@@ -10,7 +10,7 @@ except NameError:
 
 
 def call_repo_command(proc_args=[], wait=False):
-    text = color_it("Running command: ", "red")
+    text = color_it("\nRunning command: ", "red")
     command = color_it(" ".join(proc_args))
     print(text + command)
     process = subprocess.Popen(proc_args, cwd='repo', stdin=subprocess.PIPE,
@@ -39,7 +39,9 @@ def change_file(filename, text):
     f.close()
     text = "Writing to: %s..." % filename
     print(color_it(text))
-    call_repo_command(['cat', filename])
+    print(color_it("%s contains:" % filename, 'red'))
+    subprocess.call(['cat', filename], cwd='repo')
+    print('\n')
 
 def cleanup():
    #remove old directory maybe more later?
