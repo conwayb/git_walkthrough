@@ -67,8 +67,8 @@ def example_one():
     print(color_it("\nRunning command: ", 'red') + color_it('git commit --amend'))
     time.sleep(1)
     subprocess.call(['git', 'commit', '--amend'], cwd='repo')
-    input(color_it('\nPress enter to continue...', 'yellow'))
     print(color_it("\nLet's look at our git log..."))
+    input(color_it('\nPress enter to continue...', 'yellow'))
     call_repo_command(['git', 'log'])
     print(color_it("\nAnd we see just the one commit"))
     print(color_it("git commit --amend is cool!"))
@@ -102,8 +102,8 @@ def example_two():
     print(color_it("\nRunning command: ", 'red') + color_it('git commit'))
     time.sleep(1)
     subprocess.call(['git', 'commit'], cwd='repo')
+    print(color_it("\nGreat. Let's look at our git log..."))
     input(color_it('\nPress enter to continue...', 'yellow'))
-    print(color_it("\nLet's look at our git log..."))
     call_repo_command(['git', 'log'])
     print(color_it("Cool, now let's make another change..."))
     change_file('file2.txt', "This change is also cool")
@@ -115,7 +115,8 @@ def example_two():
     print(color_it("\nRunning command: ", 'red') + color_it('git commit'))
     time.sleep(1)
     subprocess.call(['git', 'commit'], cwd='repo')
-    print(color_it("\nLet's look at our git log again. Press enter to continue...", 'yellow'))
+    print(color_it("\nLet's look at our git log again...", 'yellow'))
+    input(color_it('\nPress enter to continue...', 'yellow'))
     call_repo_command(['git', 'log'])
     input(color_it('\nPress enter to continue...', 'yellow'))
     text = """
@@ -165,7 +166,7 @@ def example_two():
         were able to travel further back in time.
         """
     print(color_it(text, 'white'))
-    print(color_it("\nYou are like Dr. Who: travelling through time and doing good.", 'white'))
+    print(color_it("You're like a time traveler or something.", 'white'))
     time.sleep(1)
     print(color_it("\nThat's the end of example 2"))
     key = input(color_it("Press enter to move to the next example or 'q' to quit",
@@ -206,9 +207,7 @@ def example_three():
     input(color_it('\nPress enter to continue...', 'yellow'))
     text = """
            The interactive rebase session will open your configured
-           editor. Each line is a separate commit on which you can
-           perform certain operations (there are even nice instructions
-           included). To change the order simply copy/paste the lines in
+           editor. To change the order simply copy/paste the lines in
            the order you'd like to have them and save.
            The changes will be applied from top to bottom.
          """
@@ -220,7 +219,7 @@ def example_three():
     input(color_it('\nPress enter to check the git log...', 'yellow'))
     call_repo_command(['git', 'log'])
     print(color_it("\nDid you change the order? Cool.", 'white'))
-    print(color_it("You're like a time traveler or something.", 'white'))
+    print(color_it("\nYou are like Dr. Who: travelling through time and doing good.", 'white'))
     time.sleep(1)
     print(color_it("\nThat's the end of example 3"))
     key = input(color_it("\nPress enter to move to the next example or 'q' to quit",
@@ -268,6 +267,7 @@ def example_four():
     input(color_it("\nLet's check the git log. Press enter...", 'yellow'))
     call_repo_command(['git', 'log'])
     print(color_it("\nThere should just be two commits now. Did you combine the commits? Coolness.", 'white'))
+    input(color_it('\nPress enter to continue...', 'yellow'))
     text = """WARNING\n
            Remember to never change history that has already been
            consumed by others. For example you should not change the
