@@ -83,14 +83,11 @@ def example_one():
     else:
         call_example(2)
 
-
 def example_two():
-    """ git rebase -i changing order of commits """
+    """ rebase edit """
 
-    text = """Example #2: Interactive Rebasing: changing order\n
-            In this example, we'll modify a file, stage the file,
-            and commit the changes. Then we'll perform an interactive rebase
-            to change the order of the commits.\n
+    text = """Example #2: Interactive Rebasing: editing\n
+              let's edit a commit message with rebase -i.
            """
     print(color_it(text, 'white'))
     input(color_it('Press enter to continue...', 'yellow'))
@@ -120,12 +117,6 @@ def example_two():
     subprocess.call(['git', 'commit'], cwd='repo')
     print(color_it("Let's look at our git log again. Press enter to continue...", 'yellow'))
     call_repo_command(['git', 'log'])
-    text = """
-            Okay. So now we decide it makes more sense for the second change
-            to come before the first change. This is a rather contrived
-            example but, let's see how it works.
-            """
-    print(color_it(text, 'white'))
     input(color_it('Press enter to continue...', 'yellow'))
     text = """
             We're going to run an interactive rebase using git rebase -i.\n
@@ -134,6 +125,75 @@ def example_two():
             'on top' of that point. With an interactive rebase you can
             alter the commits before they are applied.
            """
+    print(color_it(text, 'white'))
+    text = """
+           We need to specify at what point in history we want to start
+           our rebase. We can specify a commit hash or use the HEAD
+           pointer. We'll go back two commits by running:\n
+           git rebase -i HEAD~2
+           """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to continue...', 'yellow'))
+    text = """
+           The interactive rebase session will open your configured
+           editor. Each line is a separate commit on which you can
+           perform certain operations (there are even nice instructions
+           included). Change the word 'pick' to 'edit' and save.
+           The rebase will rewind and then let you amend your commit.
+           You will be given an opportunity to edit the commit message.
+         """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to start rebasing...', 'yellow'))
+    print(color_it("Running command: ", 'red') + color_it('git rebase -i HEAD~2'))
+    time.sleep(1)
+    subprocess.call(['git', 'rebase', '-i', 'HEAD~2'], cwd='repo')
+    print(color_it("We'll go ahead and amend that commit...", 'white'))
+    print(color_it("Running command: ", 'red') + color_it('git commit --amend'))
+    time.sleep(1)
+    subprocess.call(['git', 'commit', '--amend'], cwd='repo')
+    text = """Now we'll finish the rebase using:
+        git rebase --continue"""
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to continue...', 'yellow'))
+    print(color_it("Running command: ", 'red') + color_it('git rebase --continue'))
+    call_repo_command(['git', 'rebase', '--continue'])
+    print(color_it("Neat", 'white'))
+    input(color_it('Press enter to check the git log...', 'yellow'))
+    call_repo_command(['git', 'log'])
+    text = """
+        Wait a second. That was just like git commit --amend except we
+        were able to travel further back in time.
+        """
+    print(color_it(text, 'white'))
+    print(color_it("You are like Dr. Who: travelling through time and doing good.", 'white'))
+    time.sleep(1)
+    print(color_it("That's the end of example 2"))
+    key = input(color_it("Press enter to move to the next example or 'q' to quit",
+                         'yellow'))
+    if key == 'q':
+        print(color_it("Cleaning up...."))
+        cleanup()
+        sys.exit()
+    else:
+        call_example(3)
+
+
+def example_three():
+    """ git rebase -i changing order of commits """
+
+    text = """Example #3: Interactive Rebasing: changing order\n
+            In this example, we'll perform an interactive rebase
+            to change the order of the commits.\n
+           """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to continue...', 'yellow'))
+    print(color_it("Let's look at our git log", 'white'))
+    call_repo_command(['git', 'log'])
+    text = """
+            Okay. So now we decide it makes more sense for the second change
+            to come before the first change. This is a rather contrived
+            example but, let's see how it works.
+            """
     print(color_it(text, 'white'))
     input(color_it('Press enter to continue...', 'yellow'))
     text = """
@@ -162,52 +222,7 @@ def example_two():
     print(color_it("Did you change the order? Cool.", 'white'))
     print(color_it("You're like a time traveler or something.", 'white'))
     time.sleep(1)
-    print(color_it("That's the end of example 2"))
-    key = input(color_it("Press enter to move to the next example or 'q' to quit",
-                         'yellow'))
-    if key == 'q':
-        print(color_it("Cleaning up...."))
-        cleanup()
-        sys.exit()
-    else:
-        call_example(3)
-
-
-def example_three():
-    """ git rebase -i squash commits """
-    text = """Example #3: Interactive Rebasing: SQUASHING!\n
-            In this example, we'll combine the contents of two commits
-            into one commit using git rebase -i.
-           """
-    print(color_it(text, 'white'))
-    input(color_it('Press enter to continue...', 'yellow'))
-    text = """
-            Okay, let's say we decided that the last two commits are
-            very closely related and they should really be squashed
-            together. We'll run git rebase -i again to 'sqaush' the
-            commits together.
-           """
-    print(color_it(text, 'white'))
-    input(color_it('Press enter to continue...', 'yellow'))
-    text = """
-            We'll go back two commits again, but this time we'll 'pick'
-            the first commit and squash the second into it. When the
-            interactive rebase is opened in your editor, change the word
-            'pick' to 'squash' in front of the commit you wish to
-            combine into the previous one.\n
-            Remember the changes will be applied from top to bottom.
-           """
-    print(color_it(text, 'white'))
-    input(color_it('Press enter to SQUASH...', 'yellow'))
-    print(color_it("Running command: ", 'red') + color_it('git rebase -i HEAD~2'))
-    time.sleep(1)
-    subprocess.call(['git', 'rebase', '-i', 'HEAD~2'], cwd='repo')
-    input(color_it("Let's check the git log. Press enter...", 'yellow'))
-    call_repo_command(['git', 'log'])
-    print(color_it("There should just be two commits now. Did you combine the commits? Coolness.", 'white'))
-    print(color_it("You are like Dr. Who: travelling through time and doing good.", 'white'))
-    time.sleep(1)
-    print(color_it("That's the end of example 2"))
+    print(color_it("That's the end of example 3"))
     key = input(color_it("Press enter to move to the next example or 'q' to quit",
                          'yellow'))
     if key == 'q':
@@ -219,7 +234,52 @@ def example_three():
 
 
 def example_four():
-    """ git rebase -i change order, squash etc """
-    pass
+    """ git rebase -i squash commits """
 
-
+    text = """Example #4: Interactive Rebasing: SQUASHING!\n
+            In this example, we'll combine the contents of two commits
+            into one commit using git rebase -i.
+           """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to continue...', 'yellow'))
+    text = """
+            Okay, let's say we decided that the last two commits are
+            very closely related and they should really be squashed
+            together. We'll run git rebase -i again to 'squash' the
+            commits together.
+           """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to continue...', 'yellow'))
+    text = """
+            We'll go back two commits again, but this time we'll 'pick'
+            the first commit and squash the second into it. When the
+            interactive rebase is opened in your editor, change the word
+            'pick' to 'squash' in front of the commit you wish to
+            combine into the previous one.\n
+            You will be given an opportunity to alter your commit
+            message for the combined commits.
+            Remember the changes will be applied from top to bottom.
+           """
+    print(color_it(text, 'white'))
+    input(color_it('Press enter to SQUASH...', 'yellow'))
+    print(color_it("Running command: ", 'red') + color_it('git rebase -i HEAD~2'))
+    time.sleep(1)
+    subprocess.call(['git', 'rebase', '-i', 'HEAD~2'], cwd='repo')
+    input(color_it("Let's check the git log. Press enter...", 'yellow'))
+    call_repo_command(['git', 'log'])
+    print(color_it("There should just be two commits now. Did you combine the commits? Coolness.", 'white'))
+    text = """WARNING\n
+           Remember to never change history that has already been
+           consumed by others. For example you should not change the
+           history of commits that have already been merged into a
+           master or develop branch because other developers may have
+           based their own changes off of this history. This will cause
+           very bad headaches.
+           Be a responsible time traveller."""
+    print(color_it(text, 'red'))
+    time.sleep(1)
+    print(color_it("That's currently the end of the walkthrough"))
+    input(color_it('Press enter to cleanup and exit...', 'yellow'))
+    print(color_it("Cleaning up...."))
+    cleanup()
+    sys.exit()
