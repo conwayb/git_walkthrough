@@ -1,7 +1,7 @@
 from __future__ import print_function
-import subprocess
+import subprocess,time
 from utils import call_repo_command, color_it, cleanup
-from examples import *
+from examples import rebase
 
 #py2/3 hack
 try:
@@ -40,7 +40,7 @@ def main():
     cleanup()
     introduction()
     setup_repo()
-    call_example(1)
+    rebase.call_example(1)
 
 
 if __name__ == '__main__':
